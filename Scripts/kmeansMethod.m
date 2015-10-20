@@ -17,15 +17,13 @@ m2X = [x1(:) x2(:) x3(:)];
 
 % call k-means clustering 
 m2ind = kmeans(double(m2X),4);
-m2ind(m2ind~=4) = 0;
-m2ind(m2ind==4) = 1;
 
 % because ind is a column vector, reshape it to form an image
 m2J = reshape(m2ind,[h w]);
 
-imshow((m2J)),axis image;
+imshow(label2rgb(m2J,map,[0,0,0])),axis image;
 
-fprintf('k-mean:%f\n',jaccard_coefficient(Gt,logical(m2J)));
+fprintf('k-mean:%f\n',jaccard_coefficient(logical(Gt~=0),logical(m2J==4)));
 
 %figure(3),scatter3(X(ind==1,1),X(ind==1,2),X(ind==1,3),'w.');
 %figure(3),hold on; scatter3(X(ind==2,1),X(ind==2,2),X(ind==2,3),'w.');
